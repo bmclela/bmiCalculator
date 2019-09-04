@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body{
+            margin-top:70px;
+            background:#333;
+            color:white;
+        }
+    </style>
+    <title>Test</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4 text-center mb-3">Test</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Height</h5>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <input id="feetInput" type="number" class="form-control form-control-lg"
+                        placeholder="Enter Feet">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <input id="inchesInput" type="number" class="form-control form-control-lg"
+                        placeholder="Enter Inches">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12">
+                <h5>Weight</h5>
+            </div>
+            <div class="col-md-12">
+                <form>
+                    <div class="form-group">
+                        <input id="poundsInput" type="number" class="form-control form-control-lg"
+                        placeholder="Enter Pounds">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="output">
+            <h5>BMI</h5>
+            <div class="card">
+                <div class="card-body">
+                    <div id="bmiOutput"></div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script>
+        let pounds, feet, inches;
+        document.getElementById('poundsInput').addEventListener('input', function(e){
+            pounds = e.target.value;
+            updateBMI();
+        });
+        document.getElementById('feetInput').addEventListener('input', function(e){
+            feet = e.target.value;
+            updateBMI();
+        });
+        document.getElementById('inchesInput').addEventListener('input', function(e){
+            inches = e.target.value;
+            updateBMI();
+        });
+        
+        function updateBMI() {
+            if(pounds && feet && inches) {
+                let height = feetAndInchesToInches(feet, inches);
+                let bmi = calculateBMI(pounds, height);
+                document.getElementById('bmiOutput').innerHTML = bmi;
+            }
+        };
+
+        function feetToInches(feet) {
+            return feet*12;
+        };
+
+        function feetAndInchesToInches(feet, inches) {
+            return (parseInt(feetToInches(feet)) + parseInt(inches));
+        };
+
+        function calculateBMI(pounds, inches) {
+            return ((703 * pounds / Math.pow((inches), 2)).toFixed(1));
+        };
+
+    </script>
+</body>
+</html>
