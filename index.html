@@ -15,19 +15,19 @@
     <title>BMI Calculator</title>
 </head>
 <body>
-    <div class="container offset-md-3">
-        <div class="row">
-            <div class="col-md-6">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 <h1 class="display-4 text-center mb-3">BMI Calculator</h1>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 <h5>Height</h5>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
                 <form>
                     <div class="form-group">
                         <input id="feetInput" type="number" class="form-control form-control-lg"
@@ -35,7 +35,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <form>
                     <div class="form-group">
                         <input id="inchesInput" type="number" class="form-control form-control-lg"
@@ -44,13 +44,13 @@
                 </form>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 <h5>Weight</h5>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
                 <form>
                     <div class="form-group">
                         <input id="poundsInput" type="number" class="form-control form-control-lg"
@@ -59,27 +59,38 @@
                 </form>
             </div>
         </div>
-        <div id="output">
-            <h5>BMI</h5>
-            <div class="card" id ="card-color">
-                <div class="card-body">
-                    <div id="bmiOutput"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div id="output">
+                    <h5>BMI</h5>
+                    <div class="card" id ="card-color">
+                        <div class="card-body">
+                            <div id="bmiOutput"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div> 
     <script>
         document.getElementById('output').style.visibility = 'hidden';
+
         let pounds, feet, inches;
+
         document.getElementById('poundsInput').addEventListener('input', function(e){
+            e.preventDefault();
             pounds = e.target.value;
             updateBMI();
         });
+
         document.getElementById('feetInput').addEventListener('input', function(e){
+            e.preventDefault();
             feet = e.target.value;
             updateBMI();
         });
+        
         document.getElementById('inchesInput').addEventListener('input', function(e){
+            e.preventDefault();
             inches = e.target.value;
             updateBMI();
         });
@@ -89,8 +100,9 @@
                 document.getElementById('output').style.visibility = 'visible';
                 let height = feetAndInchesToInches(feet, inches);
                 let bmi = calculateBMI(pounds, height);
-                setColor(bmi);
                 document.getElementById('bmiOutput').innerHTML = bmi;
+                setColor(bmi);
+                setText1(bmi);
             }
         };
 
@@ -107,7 +119,7 @@
         };
 
         function setColor(bmi) {
-            let color;
+            let color="";
             if(bmi > 40) {
                 color = "#FF4136";
             } else if(bmi > 30) {
@@ -122,8 +134,20 @@
             document.getElementById('card-color').style.backgroundColor = color;
         };
 
-        function setText(bmi) {
-            
+        function setText1(bmi) {
+            let text = "";
+            if(bmi > 40) {
+                text = " Extremely Obese";
+            } else if(bmi > 30) {
+                text = " Obese";
+            } else if(bmi > 25) {
+                text = " Overweight";
+            } else if(bmi > 18.5) {
+                text = " Normal";
+            } else {
+                text = " Underweight";
+            }
+            document.getElementById('bmiOutput').innerHTML += text;
         };
 
     </script>
