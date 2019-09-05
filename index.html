@@ -12,46 +12,56 @@
             color:white;
         }
     </style>
-    <title>Test</title>
+    <title>BMI Calculator</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="display-4 text-center mb-3">Test</h1>
+    <div class="container offset-md-3">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <h1 class="display-4 text-center mb-3">BMI Calculator</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <h5>Height</h5>
             </div>
-            <div class="col-md-6">
+        </div>
+        <div class="row">
+            <div class="col-md-3">
                 <form>
                     <div class="form-group">
                         <input id="feetInput" type="number" class="form-control form-control-lg"
-                        placeholder="Enter Feet">
+                        placeholder="Feet">
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <form>
                     <div class="form-group">
                         <input id="inchesInput" type="number" class="form-control form-control-lg"
-                        placeholder="Enter Inches">
+                        placeholder="Inches">
                     </div>
                 </form>
             </div>
-            <div class="col-md-12">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <h5>Weight</h5>
             </div>
-            <div class="col-md-12">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <form>
                     <div class="form-group">
                         <input id="poundsInput" type="number" class="form-control form-control-lg"
-                        placeholder="Enter Pounds">
+                        placeholder="Pounds">
                     </div>
                 </form>
             </div>
         </div>
         <div id="output">
             <h5>BMI</h5>
-            <div class="card">
+            <div class="card" id ="card-color">
                 <div class="card-body">
                     <div id="bmiOutput"></div>
                 </div>
@@ -59,6 +69,7 @@
         </div>
     </div> 
     <script>
+        document.getElementById('output').style.visibility = 'hidden';
         let pounds, feet, inches;
         document.getElementById('poundsInput').addEventListener('input', function(e){
             pounds = e.target.value;
@@ -75,8 +86,10 @@
         
         function updateBMI() {
             if(pounds && feet && inches) {
+                document.getElementById('output').style.visibility = 'visible';
                 let height = feetAndInchesToInches(feet, inches);
                 let bmi = calculateBMI(pounds, height);
+                setColor(bmi);
                 document.getElementById('bmiOutput').innerHTML = bmi;
             }
         };
@@ -91,6 +104,26 @@
 
         function calculateBMI(pounds, inches) {
             return ((703 * pounds / Math.pow((inches), 2)).toFixed(1));
+        };
+
+        function setColor(bmi) {
+            let color;
+            if(bmi > 40) {
+                color = "#FF4136";
+            } else if(bmi > 30) {
+                color = "#FF851B";
+            } else if(bmi > 25) {
+                color = "#FFDC00";
+            } else if(bmi > 18.5) {
+                color = "#2ECC40";
+            } else {
+                color = "#0074D9";
+            }
+            document.getElementById('card-color').style.backgroundColor = color;
+        };
+
+        function setText(bmi) {
+            
         };
 
     </script>
